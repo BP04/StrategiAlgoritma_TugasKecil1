@@ -58,6 +58,10 @@ public class Solver {
 
         for(int r = 0; r < N; ++r){
             for(int c = 0; c < M; ++c){
+                if(!board.is_empty(r, c)){
+                    continue;
+                }
+
                 for(char[][] current : orientations){
 
                     int current_row = current.length;

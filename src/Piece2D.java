@@ -79,7 +79,7 @@ public class Piece2D {
                     System.out.print(" ");
                     continue;
                 }
-                System.out.print(Constants.get_color(ch));
+                System.out.print(Constants.get_colored_text(ch));
             }
             System.out.println();
         }

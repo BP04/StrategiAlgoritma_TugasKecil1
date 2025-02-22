@@ -23,22 +23,44 @@ public class Main {
             return;
         }
 
-        System.out.print("Apakah anda ingin menyimpan solusi? (ya/tidak) ");
-        String answer = scanner.nextLine();
+        String answer;
+
+        System.out.print("Apakah anda ingin menyimpan solusi dalam bentuk text? (ya/tidak) ");
+        answer = scanner.nextLine();
 
         if(answer.equals("ya")){
             System.out.print("Masukkan nama file: ");
-            String fileName = scanner.nextLine();
+            String file_name = scanner.nextLine();
 
-            fileName = "../test/" + fileName;
+            file_name = "../test/" + file_name + ".txt";
 
             try {
-                solver.board.save_board(fileName);
+                solver.board.save_board_text(file_name);
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            System.out.println("Solusi berhasil disimpan");
+            System.out.println("Solusi berhasil disimpan dalam bentuk text.");
+            System.out.println();
+        }
+
+        System.out.print("Apakah anda ingin menyimpan solusi dalam bentuk image? (ya/tidak) ");
+        answer = scanner.nextLine();
+
+        if(answer.equals("ya")){
+            System.out.print("Masukkan nama file: ");
+            String file_name = scanner.nextLine();
+
+            file_name = "../test/" + file_name + ".jpg";
+
+            try {
+                solver.board.save_board_image(file_name);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Solusi berhasil disimpan dalam bentuk image.");
+            System.out.println();
         }
 
         System.out.println();
@@ -49,11 +71,11 @@ public class Main {
     private static void parse(Scanner scanner){
 
         System.out.print("Masukkan nama file: ");
-        String fileName = scanner.nextLine();
+        String file_name = scanner.nextLine();
 
-        fileName = "../test/" + fileName;
+        file_name = "../test/" + file_name;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))){
+        try (BufferedReader br = new BufferedReader(new FileReader(file_name))){
             String[] firstLine = br.readLine().split(" ");
             N = Integer.parseInt(firstLine[0]);
             M = Integer.parseInt(firstLine[1]);
