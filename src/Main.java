@@ -10,7 +10,7 @@ public class Main {
     static String S;
     static char[][] board;
     static ArrayList<char[][]> pieces = new ArrayList<>();
-    static boolean duplicate_check;
+    static boolean duplicate_check, unknown_check;
 
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
@@ -27,6 +27,13 @@ public class Main {
         if(P != pieces.size()){
             System.out.println();
             System.out.println("Invalid: Banyak bentuk blok tidak sesuai.");
+            System.out.println();
+            return;
+        }
+
+        if(unknown_check){
+            System.out.println();
+            System.out.println("Invalid: Tipe papan tidak diketahui.");
             System.out.println();
             return;
         }
@@ -99,6 +106,7 @@ public class Main {
 
         boolean[] exist = new boolean[26];
         duplicate_check = false;
+        unknown_check = false;
 
         try (BufferedReader br = new BufferedReader(new FileReader(file_name))){
             String[] firstLine = br.readLine().split(" ");
@@ -127,6 +135,9 @@ public class Main {
                         }
                     }
                 }
+            }
+            else{
+                unknown_check = true;
             }
 
             List<String> piece = new ArrayList<>();
