@@ -10,11 +10,33 @@ public class Main {
     static String S;
     static char[][] board;
     static ArrayList<char[][]> pieces = new ArrayList<>();
+    static boolean duplicate_check;
 
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
 
         parse(scanner);
+
+        if(!(N > 0 && M > 0)){
+            System.out.println();
+            System.out.println("Invalid: Ukuran papan harus lebih dari 0.");
+            System.out.println();
+            return;
+        }
+
+        if(P != pieces.size()){
+            System.out.println();
+            System.out.println("Invalid: Banyak bentuk blok tidak sesuai.");
+            System.out.println();
+            return;
+        }
+
+        if(duplicate_check){
+            System.out.println();
+            System.out.println("Invalid: Kode blok tidak boleh sama.");
+            System.out.println();
+            return;
+        }
 
         Solver solver = new Solver(N, M, P, board, pieces);
         boolean solution = solver.solve();
@@ -75,6 +97,9 @@ public class Main {
 
         file_name = "../test/" + file_name;
 
+        boolean[] exist = new boolean[26];
+        duplicate_check = false;
+
         try (BufferedReader br = new BufferedReader(new FileReader(file_name))){
             String[] firstLine = br.readLine().split(" ");
             N = Integer.parseInt(firstLine[0]);
@@ -125,6 +150,12 @@ public class Main {
                         piece.clear();
                     }
                     current = first;
+                    if(exist[current - 'A']){
+                        duplicate_check = true;
+                    }
+                    else{
+                        exist[current - 'A'] = true;
+                    }
                 }
                 
                 piece.add(line);

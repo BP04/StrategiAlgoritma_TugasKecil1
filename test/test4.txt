@@ -1,8 +1,5 @@
-3 5 3
-CUSTOM
-XXXXX
-XXXXX
-.....
+2 0 3
+DEFAULT
 AAAA
 AA
 B

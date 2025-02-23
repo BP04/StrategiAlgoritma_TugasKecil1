@@ -60,10 +60,6 @@ public class Solver {
 
         for(int r = 0; r < N; ++r){
             for(int c = 0; c < M; ++c){
-                if(!board.is_empty(r, c)){
-                    continue;
-                }
-
                 for(char[][] current : orientations){
 
                     int current_row = current.length;
@@ -131,9 +127,6 @@ public class Solver {
                 boolean leaf = true;
                 for(int r = 0; r < N; ++r){
                     for(int c = 0; c < M; ++c){
-                        if(!board.is_empty(r, c)){
-                            continue;
-                        }
 
                         int iter = -1;
                         for(char[][] current : orientations){
@@ -173,6 +166,10 @@ public class Solver {
     }
 
     private boolean can_put_piece(char[][] piece, int piece_row, int piece_col, int r, int c){
+        if(!board.is_empty(r, c) && piece[0][0] != ' '){
+            return false;
+        }
+        
         if(r + piece_row - 1 >= N || c + piece_col - 1 >= M){
             return false;
         }
