@@ -63,4 +63,4 @@ Ketik `<nama_file>` dengan format .txt (misal `test8.txt`) setelah program dijal
 ## Author
 | Nama | NIM | Kelas |
 |------|---|---|
-| Benedict Presley | 13523067 | K02 |  
+| Benedict Presley | 13523067 | K2 |  
