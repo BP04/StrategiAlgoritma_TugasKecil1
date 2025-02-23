@@ -32,7 +32,7 @@ public class Main {
             System.out.print("Masukkan nama file: ");
             String file_name = scanner.nextLine();
 
-            file_name = "../test/" + file_name + ".txt";
+            file_name = "../output/" + file_name + ".txt";
 
             try {
                 solver.board.save_board_text(file_name);
@@ -51,7 +51,7 @@ public class Main {
             System.out.print("Masukkan nama file: ");
             String file_name = scanner.nextLine();
 
-            file_name = "../test/" + file_name + ".jpg";
+            file_name = "../output/" + file_name + ".jpg";
 
             try {
                 solver.board.save_board_image(file_name);

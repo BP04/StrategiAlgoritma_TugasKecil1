@@ -2,9 +2,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
 import java.awt.image.BufferedImage;
 
 public class Board {
@@ -126,35 +124,4 @@ public class Board {
         File output_file = new File(file_name);
         ImageIO.write(image, "jpg", output_file);
     }
-
-    // public static void main(String[] args){
-    //     Grid grid = new Grid(5, 5);
-    //     grid.set(0, 0, 'A');
-    //     grid.set(0, 1, 'B');
-    //     grid.set(0, 2, 'C');
-    //     grid.set(0, 3, 'D');
-    //     grid.set(0, 4, 'E');
-    //     grid.set(1, 0, 'F');
-    //     grid.set(1, 1, 'G');
-    //     grid.set(1, 2, 'H');
-    //     grid.set(1, 3, 'I');
-    //     grid.set(1, 4, 'J');
-    //     grid.set(2, 0, 'K');
-    //     grid.set(2, 1, 'L');
-    //     grid.set(2, 2, 'M');
-    //     grid.set(2, 3, 'N');
-    //     grid.set(2, 4, 'O');
-    //     grid.set(3, 0, 'P');
-    //     grid.set(3, 1, 'Q');
-    //     grid.set(3, 2, 'R');
-    //     grid.set(3, 3, 'S');
-    //     grid.set(3, 4, 'T');
-    //     grid.set(4, 0, 'U');
-    //     grid.set(4, 1, 'V');
-    //     grid.set(4, 2, 'W');
-    //     grid.set(4, 3, 'X');
-    //     grid.set(4, 4, 'Y');
-    //     grid.print_matrix();
-    //     System.out.println(Constants.get_color('Z'));
-    // }
 }

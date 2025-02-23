@@ -62,11 +62,6 @@ public class Piece2D {
             }
             temp = rotate(temp);
         }
-
-        // for(char[][] orientation : orientations){
-        //     print_piece(orientation);
-        //     System.out.println();
-        // }
     }
 
     public void print_piece(char[][] piece){
