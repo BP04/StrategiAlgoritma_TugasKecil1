@@ -1,4 +1,5 @@
 import java.time.Instant;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.time.Duration;
 
@@ -24,13 +25,14 @@ public class Solver {
 
         Instant start = Instant.now();
 
-        IntBooleanPair total = solve(0);
+        // IntBooleanPair total = solve_recursive(0);
+        IntBooleanPair total = solve_iterative();
         
         Instant end = Instant.now();
 
         System.out.println();
         
-        if(total.get_second()){
+        if(total.second){
             board.print_board();
         }
         else{
@@ -40,13 +42,13 @@ public class Solver {
         System.out.println();
         System.out.println("Waktu pencarian: " + Duration.between(start, end).toMillis() + " ms");
         System.out.println();
-        System.out.println("Banyak kasus yang ditinjau: " + total.get_first());
+        System.out.println("Banyak kasus yang ditinjau: " + total.first);
         System.out.println();
 
-        return total.get_second();
+        return total.second;
     }
 
-    private IntBooleanPair solve(int index){
+    private IntBooleanPair solve_recursive(int index){
         if(index >= P){
             boolean possible = (!board.empty_spaces()) && (board.count_unique() == P);
             return new IntBooleanPair(1, possible);
@@ -68,13 +70,14 @@ public class Solver {
                     int current_col = current[0].length;
 
                     if(can_put_piece(current, current_row, current_col, r, c)){
+                        put_piece(current, current_row, current_col, r, c);
 
-                        IntBooleanPair result = solve(index + 1);
+                        IntBooleanPair result = solve_recursive(index + 1);
 
-                        total.set_first(total.get_first() + result.get_first());
-                        total.set_second(total.get_second() || result.get_second());
+                        total.first = total.first + result.first;
+                        total.second = total.second || result.second;
 
-                        if(total.get_second()){
+                        if(total.second){
                             return total;
                         }
 
@@ -82,10 +85,88 @@ public class Solver {
                     }
                 }
             }
+            
         }
 
-        if(total.get_first() == 0){
-            total.set_first(1);
+        if(total.first == 0){
+            total.first = 1;
+        }
+
+        return total;
+    }
+
+    private IntBooleanPair solve_iterative(){
+        IntBooleanPair total = new IntBooleanPair(0, false);
+
+        ArrayDeque<State> stack = new ArrayDeque<>();
+        
+        State start = new State(0, 0, 0, 0, 0, false);
+        stack.push(start);
+
+        while(!stack.isEmpty()){
+            State now = stack.pop();
+
+            if(!now.remove){
+                if(now.piece_index != now.current_index){
+                    char[][] to_place = pieces.get(now.piece_index).orientations.get(now.orientation_index);
+
+                    int to_place_row = to_place.length;
+                    int to_place_col = to_place[0].length;
+
+                    put_piece(to_place, to_place_row, to_place_col, now.placement_row, now.placement_column);
+                }
+
+                if(now.current_index >= P){
+                    boolean possible = (!board.empty_spaces()) && (board.count_unique() == P);
+                    if(possible){
+                        total.first++;
+                        total.second = true;
+                        return total;
+                    }
+                    continue;
+                }
+
+                ArrayList<char[][]> orientations = pieces.get(now.current_index).orientations;
+
+                boolean leaf = true;
+                for(int r = 0; r < N; ++r){
+                    for(int c = 0; c < M; ++c){
+                        if(!board.is_empty(r, c)){
+                            continue;
+                        }
+
+                        int iter = -1;
+                        for(char[][] current : orientations){
+
+                            iter++;
+                            int current_row = current.length;
+                            int current_col = current[0].length;
+
+                            if(can_put_piece(current, current_row, current_col, r, c)){
+                                leaf = false;
+                                
+                                State rem = new State(r, c, now.current_index, iter, now.current_index, true);
+                                stack.push(rem);
+
+                                State next = new State(r, c, now.current_index, iter, now.current_index + 1, false);
+                                stack.push(next);
+                            }
+                        }
+                    }
+                }
+
+                if(leaf){
+                    total.first++;
+                }
+            }
+            else{
+                char[][] to_remove = pieces.get(now.piece_index).orientations.get(now.orientation_index);
+
+                int to_remove_row = to_remove.length;
+                int to_remove_col = to_remove[0].length;
+
+                remove_piece(to_remove, to_remove_row, to_remove_col, now.placement_row, now.placement_column);
+            }
         }
 
         return total;
@@ -106,7 +187,10 @@ public class Solver {
                 }
             }
         }
+        return true;
+    }
 
+    private void put_piece(char[][] piece, int piece_row, int piece_col, int r, int c){
         for(int i = r; i < r + piece_row; ++i){
             for(int j = c; j < c + piece_col; ++j){
                 if(piece[i - r][j - c] == ' '){
@@ -115,8 +199,6 @@ public class Solver {
                 board.set(i, j, piece[i - r][j - c]);
             }
         }
-
-        return true;
     }
 
     private void remove_piece(char[][] piece, int piece_row, int piece_col, int r, int c){

@@ -25,7 +25,7 @@ public class Main {
 
         String answer;
 
-        System.out.print("Apakah anda ingin menyimpan solusi dalam bentuk text? (ya/tidak) ");
+        System.out.print("Apakah Anda ingin menyimpan solusi dalam bentuk text? (ya/tidak) ");
         answer = scanner.nextLine();
 
         if(answer.equals("ya")){
@@ -44,7 +44,7 @@ public class Main {
             System.out.println();
         }
 
-        System.out.print("Apakah anda ingin menyimpan solusi dalam bentuk image? (ya/tidak) ");
+        System.out.print("Apakah Anda ingin menyimpan solusi dalam bentuk image? (ya/tidak) ");
         answer = scanner.nextLine();
 
         if(answer.equals("ya")){
