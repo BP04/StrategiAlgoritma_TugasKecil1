@@ -38,7 +38,7 @@ java -cp ../bin Main
 
 ### Masukan
 
-Baris pertama berisi $3$ bilangan N, M, dan P yang masing-masing menyatakan jumlah baris papan/board, jumlah kolom papan/board, dan banyaknya blok/piece. Baris selanjutnya berisi suatu string yang menyatakan jenis papan. Jika jenis papan adalah CUSTOM, beberapa baris selanjutnya akan diikuti oleh bentuk papan.
+Baris pertama berisi $3$ bilangan $N$, $M$, dan $P$ yang masing-masing menyatakan jumlah baris papan/board, jumlah kolom papan/board, dan banyaknya blok/piece. Baris selanjutnya berisi suatu string yang menyatakan jenis papan. Jika jenis papan adalah CUSTOM, beberapa baris selanjutnya akan diikuti oleh bentuk papan.
 Baris-baris selanjutnya akan berisi bentuk dari setiap puzzle.
 
 ```
@@ -49,6 +49,7 @@ BoardType
 ...
 <Piece P>
 ```
+Silahkan melihat contoh yang ada pada folder test.
 
 ### Keluaran
 
